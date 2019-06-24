@@ -2,44 +2,38 @@ import * as React from 'react';
 import css from './ScrollTo.module.css';
 
 type Props = {
-	id?: string;
-	attribute?: string;
-	class?: string;
-	text?: string;
+	targetId: string;
+	block?: Block;
+	inline?: Inline;
 };
+type Block = 'start' | 'center' | 'end' | 'nearest';
+type Inline = 'start' | 'center' | 'end' | 'nearest';
 
 const ScrollTo: React.FC<Props> = props => {
-	const target: string = !!props.id
-		? props.id
-		: !!props.attribute
-		? props.attribute
-		: !!props.class
-		? props.class
-		: '';
+	const defaultBehavior: ScrollBehavior = 'smooth';
+	const defaultBlock: Block = 'start';
+	const defaultInline: Inline = 'center';
+	const element = document.getElementById(props.targetId) as HTMLElement;
+	if (element === undefined) return;
+	const useBlock: Block = props.block ? props.block : defaultBlock;
+	const useInline: Inline = props.inline ? props.inline : defaultInline;
 
-	const clickHandler = (): void => {
-		if (target.length === 0) return;
-		const element = !!props.id
-			? (document.getElementById(target) as HTMLElement)
-			: (document.querySelector(target) as HTMLElement);
-		if (element === undefined) return;
+	const onScrollClick = () =>
 		element.scrollIntoView({
-			behavior: 'smooth',
-			block: 'end',
-			inline: 'nearest'
+			behavior: defaultBehavior,
+			block: useBlock,
+			inline: useInline
 		});
-	};
 
 	return (
 		<button
-			data-test='component-scroll-to'
 			type='button'
-			className={css.ScrollTo__Button}
-			onClick={clickHandler}>
-			<span className={css.ScrollTo__Content}>
-				{props.text}
+			data-test=''
+			className={css.ScrollTo}
+			onClick={onScrollClick}>
+			<section className={css.ScrollTo__Children}>
 				{props.children}
-			</span>
+			</section>
 		</button>
 	);
 };
