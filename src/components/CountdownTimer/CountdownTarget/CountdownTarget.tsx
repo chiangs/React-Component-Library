@@ -1,18 +1,19 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import css from './CountdownTarget.module.css';
+import CountdownTimerContext from '../CountdownTimer.context';
 
 type Props = {
 	targetText: string;
-	targetDateTime: Date;
 };
 
 const CountdownTarget: React.FC<Props> = props => {
-	const dateTimeYYYYMMDD: string = props.targetDateTime.toDateString();
-	const dateTimeText: string = props.targetDateTime.toDateString();
+	const context = useContext(CountdownTimerContext);
+	const dateTimeYYYYMMDD: string = context.targetDateTime.toDateString();
+	const dateTimeText: string = context.targetDateTime.toDateString();
 	return (
 		<section data-test='' className={css.CountdownTarget}>
 			<h1 className={css.CountdownTarget__Target}>
-				{props.targetText}
+				{props.targetText}&nbsp;
 				<time dateTime={dateTimeYYYYMMDD}>{dateTimeText}</time>
 			</h1>
 		</section>

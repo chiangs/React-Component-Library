@@ -1,19 +1,22 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
+import { Countdown } from '../_types/types';
 import css from './CountdownTime.module.css';
 import TimerUnit from './TimerUnit';
-import { TimeUnitObj } from '../_types/types';
+import { DAYS, HOURS, MINUTES, SECONDS } from '../_data/constants';
+import CountdownTimerContext from '../CountdownTimer.context';
 
-type Props = {
-	countdown: TimeUnitObj[];
-};
+type Props = {};
 
 const CountdownTime: React.FC<Props> = props => {
-	const timerUnits = props.countdown.map((item, index) => (
-		<TimerUnit count={item.count} unit={item.unit} />
-	));
+	const context = useContext(CountdownTimerContext);
+	console.log(context.countdown);
+
 	return (
 		<section data-test='' className={css.CountdownTime}>
-			{timerUnits}
+			<TimerUnit count={context.countdown.days} unit={DAYS} />
+			<TimerUnit count={context.countdown.hours} unit={HOURS} />
+			<TimerUnit count={context.countdown.minutes} unit={MINUTES} />
+			<TimerUnit count={context.countdown.seconds} unit={SECONDS} />
 		</section>
 	);
 };
