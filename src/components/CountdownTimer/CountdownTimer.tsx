@@ -10,14 +10,17 @@ import { SECONDS, initCountdown } from './_data/constants';
 type Props = {};
 
 const CountdownTimer: React.FC<Props> = props => {
-	const targetText: string = 'my 40th birthday!';
+	const [targetName, setTargetName] = useState<string>('');
 	const [now, setNow] = useState<Date>(new Date());
 	const [target, setTarget] = useState<Date>(new Date());
 	const [countdown, setCountdown] = useState<Countdown>(initCountdown);
 
 	useEffect(() => {
+		// * When used in an app, change to data from props
+		const targetText: string = 'my 40th birthday!';
 		const targetDateTime: Date = new Date(2021, 11, 28);
 		const currentDateTime: Date = new Date(Date.now());
+		setTargetName(targetText);
 		setTarget(targetDateTime);
 		setNow(currentDateTime);
 		setInterval(() => setNow(new Date()), toMilliseconds('seconds'));
@@ -29,6 +32,7 @@ const CountdownTimer: React.FC<Props> = props => {
 	}, [now]);
 
 	const context = {
+		targetText: targetName,
 		targetDateTime: target,
 		currentDateTime: now,
 		countdown: countdown
@@ -37,7 +41,7 @@ const CountdownTimer: React.FC<Props> = props => {
 	return (
 		<CountdownTimerContext.Provider value={context}>
 			<aside data-test='' className={css.CountdownTimer}>
-				<CountdownTarget targetText={targetText} />
+				<CountdownTarget />
 				<CountdownTime />
 				{props.children}
 			</aside>
