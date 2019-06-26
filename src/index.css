@@ -1,0 +1,73 @@
+html {
+	box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+li,
+p,
+pre,
+blockquote,
+figure,
+hr {
+	margin: 0;
+	padding: 0;
+}
+
+input,
+textarea,
+select,
+button {
+	color: inherit;
+	font: inherit;
+	letter-spacing: inherit;
+	border: 1px solid gray;
+}
+
+button {
+	border-radius: 0;
+	padding: 0.75em 1em;
+	background-color: transparent;
+}
+
+/* This is mainly used for JavaScript interaction.
+/ (When users click on something in a button, event.target 
+/ is the thing they clicked on, not the button. 
+/ This style makes it easier to work with click events if there are 
+/ HTML elements inside a button).
+*/
+button * {
+	pointer-events: none;
+}
+
+embed,
+iframe,
+img,
+object,
+video {
+	display: block;
+	max-width: 100%;
+}
+
+[hidden] {
+	display: none !important;
+}
+
+noscript {
+	display: block;
+	margin-bottom: 1em;
+	margin-top: 1em;
+}

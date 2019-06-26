@@ -8,13 +8,13 @@ type Props = {
 
 const CountdownTarget: React.FC<Props> = props => {
 	const context = useContext(CountdownTimerContext);
+	const timeTo: string = 'Time to';
 	const dateTimeYYYYMMDD: string = context.targetDateTime.toDateString();
-	const dateTimeText: string = context.targetDateTime.toDateString();
 	return (
 		<section data-test='' className={css.CountdownTarget}>
 			<h1 className={css.CountdownTarget__Target}>
-				{props.targetText}&nbsp;
-				<time dateTime={dateTimeYYYYMMDD}>{dateTimeText}</time>
+				{timeTo}&nbsp;
+				<time dateTime={dateTimeYYYYMMDD}>{props.targetText}</time>
 			</h1>
 		</section>
 	);
