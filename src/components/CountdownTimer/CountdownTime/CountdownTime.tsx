@@ -15,14 +15,17 @@ type Props = {};
 
 const CountdownTime: React.FC<Props> = props => {
 	const context = useContext(CountdownTimerContext);
+	const unitArray: string[] = [YEARS, MONTHS, DAYS, HOURS, MINUTES, SECONDS];
+	const countArray: number[] = Array.from(
+		Object.keys(context.countdown),
+		key => context.countdown[key]
+	);
+	const timerUnits: JSX.Element[] = unitArray.map((unit, i) => (
+		<TimerUnit count={countArray[i]} unit={unit} />
+	));
 	return (
 		<section data-test='' className={css.CountdownTime}>
-			<TimerUnit count={context.countdown.years} unit={YEARS} />
-			<TimerUnit count={context.countdown.months} unit={MONTHS} />
-			<TimerUnit count={context.countdown.days} unit={DAYS} />
-			<TimerUnit count={context.countdown.hours} unit={HOURS} />
-			<TimerUnit count={context.countdown.minutes} unit={MINUTES} />
-			<TimerUnit count={context.countdown.seconds} unit={SECONDS} />
+			{timerUnits}
 		</section>
 	);
 };
