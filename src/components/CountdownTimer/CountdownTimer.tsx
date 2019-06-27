@@ -3,9 +3,9 @@ import CountdownTarget from './CountdownTarget';
 import CountdownTime from './CountdownTime';
 import CountdownTimerContext from './CountdownTimer.context';
 import css from './CountdownTimer.module.css';
+import { initCountdown } from './_data/constants';
 import { getCountdown, toMilliseconds } from './_services/dateTime.service';
 import { Countdown } from './_types/types';
-import { SECONDS, initCountdown } from './_data/constants';
 
 type Props = {};
 
@@ -28,8 +28,7 @@ const CountdownTimer: React.FC<Props> = props => {
 
 	useEffect(() => {
 		setCountdown(getCountdown(target, now));
-		// eslint-disable-next-line
-	}, [now]);
+	}, [now, target]);
 
 	const context = {
 		targetText: targetName,
